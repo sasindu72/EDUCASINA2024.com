@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://img.freepik.com/free-vector/education-pattern-background-doodle-style_53876-115365.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1726185600&semt=ais_hybrid') no-repeat center center;
+            background-size: cover;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Splash Screen Styling */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #656de4, #586b8d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(39, 35, 35);
+            font-size: 3em;
+            font-weight: bold;
+            z-index: 9999;
+            transition: opacity 1s ease-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        header, section, footer {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 2em;
+            font-size: 2em;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Back Button Styling */
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #111111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #e55337;
+        }
+
+        section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grade-btn, .subject-btn, .lesson-btn {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .grade-btn:hover, .subject-btn:hover, .lesson-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .video-placeholder {
+            width: 80%;
+            height: 400px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div id="welcome-message">Welcome to the Educational App</div>
+    </div>
+
+    <!-- Main Content -->
+    <header class="hidden">
+        <!-- Back Button -->
+        <button class="back-btn hidden" onclick="goBack()">← Back</button>
+        Educational APP
+    </header>
+
+    <section id="year-selection" class="hidden">
+        <h2>වසර තෝරන්න</h2>
+        <button class="grade-btn" onclick="showSubjects(6)">6 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(7)">7 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(8)">8 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(9)">9 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(10)">10 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(11)">11 වසර</button>
+        <button class="grade-btn" onclick="showSubjects(12)">පෙල පොත්</button>
+        <button class="grade-btn" onclick="showSubjects(13)">පෙල පොත්</button>
+    </section>
+
+    <!-- Subject Sections for Each Year -->
+    <section id="subject-6" class="hidden">
+        <h2>6 වසර- විශය තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('6 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('6 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('6 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('6 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('6 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('6 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('6 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('6 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('6 Tamil')">දෙමළ</button>
+        <button class="subject-btn" onclick="showLessons('6 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('6 citizen')">පුරවැසි</button>
+    </section>
+
+    <section id="subject-7" class="hidden">
+        <h2>7 වසර- විශය තෝරන්නt</h2>
+        <button class="subject-btn" onclick="showLessons('7 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('7 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('7 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('7 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('7 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('7 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('7 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('7 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('7 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('7 citizen')">පුරවැසි</button>
+    </section>
+
+    
+    <section id="subject-8" class="hidden">
+        <h2>8 වසර- විශය තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('8 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('8 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('8 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('8 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('8 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('8 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('8 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('8 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('8 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('8 citizen')">පුරවැසි</button>
+    </section>
+
+    <section id="subject-9" class="hidden">
+        <h2>9 වසර- විශය තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('9 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('9 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('9 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('9 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('9 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('9 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('9 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('9 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('9 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('9 citizen')">පුරවැසි</button>
+        <button class="subject-btn" onclick="showLessons('9 PTS')">PTS</button>
+    </section>
+
+    <section id="subject-10" class="hidden">
+        <h2>10 වසර- විශය තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('10 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('10 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('10 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('10 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('10 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('10 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('10 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('10 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('10 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('10 citizen')">පුරවැසි</button>
+        <button class="subject-btn" onclick="showLessons('10 Commerce')">Commerce</button>
+        <button class="subject-btn" onclick="showLessons('10 Home Science')">ගෘහ ආර්ථික විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('10 sinhala shaith')">සිංහල සාහිත්‍යය</button>
+    </section>
+
+    <section id="subject-11" class="hidden">
+        <h2>11 වසර- විශය තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('11 buddhism')">බුද්ධාගම</button>
+        <button class="subject-btn" onclick="showLessons('11 sinhala')">සිංහල</button>
+        <button class="subject-btn" onclick="showLessons('11 Mathematics')">ගණිතය</button>
+        <button class="subject-btn" onclick="showLessons('11 ICT')">ICT</button>
+        <button class="subject-btn" onclick="showLessons('11 History')">ඉතිහාසය</button>
+        <button class="subject-btn" onclick="showLessons('11 English')">ඉංග්‍රීසි</button>
+        <button class="subject-btn" onclick="showLessons('11 Geography')">භූගෝල විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('11 Science')">විද්‍යාව</button>
+        <button class="subject-btn" onclick="showLessons('11 Helith')">සෟඛ්‍ය</button>
+        <button class="subject-btn" onclick="showLessons('11 citizen')">පුරවැසි</button>
+        <button class="subject-btn" onclick="showLessons('11 Commerce')">Commerce</button>
+        <button class="subject-btn" onclick="showLessons('11 Home Science')">ගෘහ ආර්ථික විද්‍යාව</button>
+
+    </section>
+
+    <section id="subject-12" class="hidden">
+        <h2>වසර තෝරන්න</h2>
+        <button class="subject-btn" onclick="showLessons('12 buddhism')">6 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 sinhala')">7 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 Mathematics')">8 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 ICT')">9 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 History')">10 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 English')">11 වසර</button>
+    </section>
+
+    <section id="subject-13" class="hidden">
+        <h2>yi8fyiuhw</h2>
+        <button class="subject-btn" onclick="showLessons('12 buddhism')">6 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 sinhala')">7 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 Mathematics')">8 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 ICT')">9 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 History')">10 වසර</button>
+        <button class="subject-btn" onclick="showLessons('12 English')">11 වසර</button>
+    </section>
+
+
+
+
+    <!--Graed 6 Lesson Buttons-->
+    <section id="lessons-6 buddhism" class="hidden">
+        <h2>6 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අසිරිමත් බෝසත් කුමරැ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.සිදුහත් කුමරැගේ ළමා කාලය හා යොවුන් විය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.තිලොවට ගුරැ නු බුදු සමිදු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.අපි පන්සල් යමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.පතුරමු සැමට මෙත් සිත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.රාහුල පොඩි හාමුදුරුවෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.දියුණුවේ රන් දොරටු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.දිවි මග සරැ කරන සීලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.පන්සිල් රකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.මවු පිය ගුණ වරැණා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.අභියෝග ජයගත් තරැණයෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.අපේකම සුරකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.හොඳ නරක හැඳින යහපතෙහි යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.වෙනස් වීමට ඔරොත්තු දෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.වරදින් මිදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.රකිනවිට පරිසරය - රැකෙනු ඇත අප සැම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.මිහිඳු මාහිමි සමය වෙත යමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ශාසනික දායාද සුරකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.අරපිරිමැස්ම දියුණුවට මගකි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.රන් පිහාටු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.සැදැහැ ගුණයෙන් සරැ වෙමු</button>
+    </section>
+
+    <section id="lessons-6 Mathematics" class="hidden">
+        <h2>6 වසර - ගණිතය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.වෘත්ත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ස්ථානීය අගය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පුර්ණ සංඛ්‍යා මත ගණිත කර්ම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.කාලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.සංඛ්‍යා රේඛාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.නිමානය හා වටැයීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.දිශා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.තේරීම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.සාධක හා ගුණාකාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.සරල රේඛීය තාල රෑප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.දශම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.සංඛ්‍යා වර්ග හා සංඛ්‍යා රටා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.දිග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.ද්‍රව මිනුම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.ඝන වස්තු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.වීජිය සංකේත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.වීජීය පුකාශන ගොඩනැගීම හා ආදේශය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ස්කන්ධය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.අනුපාත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.දත්ත රැස් කිරීම හා නිරෑපණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.දත්ත අර්ථකථනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.දර්ශක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 25')">25.වර්ගඵලය</button>
+    </section>
+
+    
+    <section id="lessons-6 sinhala" class="hidden">
+        <h2>6 වසර - සිංහල පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.නරි නයිදේ රැවටිච්චි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.උදය සිරි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.චීචෙං චුලඟෙං යමු කිරි නෑනෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.අක්ෂරමාලාව හා පිලි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.නාම පද හා එහි ප්‍රභේද</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.සිරිත් හොඳ දැන ගෙන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.අලි උවදුර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.නලපාන ජාතකය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ක්‍රියා පද හා එහි ප්‍රභේද</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.වාක්‍ය නිර්මාණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.කලා වැවට පින් දීලා පලයල්ලා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ඇවිදින කොළයා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.අග්ගලා කංඩෝං පුතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.සසඳ සසඳ හඳපානේ අපි යනවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.'සදා මෙලෙස පුර දෙරණේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.මරණ තුනක් ඇති මිනිසෙක් පැණි කෑ ය..</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.පුංචි පැළේ ගස වෙනා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.වාසනාවන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.රාසිං දෙයියන්ට බැණ වැදුණ මුරකරැවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.සුරිය උදා වී යළි සැඟවුණාදෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.සතුරැ - මිතුරැව</button>
+    </section>
+
+    <section id="lessons-6 ICT" class="hidden">
+        <h2>6 වසර - ICT පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පරිගණකයේ වැදගත්කම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.පරිගණක විද්‍යාගාරය ආරක්ෂිතව භාවිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.මෙහෙයුම් පද්ධත්ය හා ගොනු හැසිරවීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.යෙදුම් මෘදුකාංග භාවිතය සඳහා මුසිකය හා යතුරැපුවරැව යොදා ගානීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඇල්ගොරිතම සහ ගැලීම් සටහන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.තොරතුරැ රැස්කිරීම හා සන්නීවේදනය සඳහා අන්තර්ජාලය භාවිතය</button>
+    </section>
+
+    <section id="lessons-6 History" class="hidden">
+        <h2>6 වසර - ඉතිහාසය පාඩම් තේරීම- </h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ඉතිහාසය හැඳින්වීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ආදි මිනිසා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ලෝකයේ පැරණි ශිෂ්ටාචාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශ්‍රී ලංකාව ජනාවාස වීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.අපේ අභීත රජවරැ</button>
+    </section>
+
+    <section id="lessons-6 English" class="hidden">
+        <h2>6 වසර - ඉංග්‍රීසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.Hello</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.Leisure</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.Where's Everything?</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.What Can You See? </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.Aunt Minoli's Kitchen</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.What We Do</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.A Fine Day</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.A Visit to the Zoo</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.Sugar or Sand </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.Was It Yesterday?</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.Eco Friends</button> 
+    </section>
+    
+    <section id="lessons-6 Geography" class="hidden">
+        <h2>6 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පාසල හා අවට වටපිටාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.නිවස අවට වටපිටාවේ භූමියේ ස්වභාවය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.තම නිවස අවට වටපිටාව යහපත්ව පවත්වා ගැනීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශ්‍රි ලංකාවේ පිහිටීම</button>
+    </section>
+
+    <section id="lessons-6 Science" class="hidden">
+        <h2>6 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ජෛව ලෝකයේ අසිරිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.අප අවට ඇති දේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ජලය ස්වාභාවික සම්පතක් ලෙස</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.එදිනෙදා ජීවිතයේදී ශක්තිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.අලෝකය හා පෙනීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ශබ්දය හා ඇසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.චුම්බක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සුවපහසු දිවියක් සඳහා විදුලිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.තාපය හා එහි බලපෑම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.ආහාර හා බැදුණු අන්තර් ක්‍රියා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.කාලගුණය හා දේශගුණය</button>
+    </section>
+
+
+    <section id="lessons-6 Tamil" class="hidden">
+        <h2>6 වසර - දෙමළ පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">අකුරැ ඉගෙන ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">පිල්ලම් ඉගෙන ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">1.මේ මමයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">2.පාසල් හමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">3.තාත්තා එනවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">4.කුමාරිගෙන් ලියුමක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">5.හාවා නැටුම් පෑවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">6.නුවර මාමා එනවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">7.වැස්සක් එන්නේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">8.පුසා හැංගිලා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">9.අපි පොළට යමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">10.යාපනේ මිදි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">11.පිපාසිත කපුටා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">12.දුම්රියෙන් ගමනක්</button>
+    </section>
+
+    <section id="lessons-6 Helith" class="hidden">
+        <h2>6 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සුවෙන් සතුටින් ජීවත් වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.අවශ්‍යතා හා ආශාවන් හදුනා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.නිවැරදි ඉරියව් මගින් පෞරැෂය වර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.විවේකය විනෝදයෙන් ගත කිරීමට ක්‍රීඩා කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.මලල ක්‍රීඩා හැකියා වර්ධනය සඳහා මුලික ක්‍රියාකාරකම්වල යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.නීති රීතිවලට ගරැ කරමින් ක්‍රීඩා කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.සෞඛ්‍යවත් ජීවිතයකට නිවැරදි ආහාර පුරැදු ඇති කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.අපේ සිරැර නීරෝගීව තබා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.සමබර ඡීවිතයකට යෝග්‍යතා වර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.දැනුම්වත් වෙමු‍, අභියෝග ජය ගනිමු</button>
+    </section>
+
+    <section id="lessons-6 citizen" class="hidden">
+        <h2>6 වසර - පුරවැසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අපේ පාසල</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.අප ඡීවත්වන ප්‍රදේශය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.යහපත් පුරවැසියෙකු වශයෙන් ප්‍රගුණ කළ යුතු ගුණාංග</button>
+    </section>
+
+
+
+     <!--Graed 7 Lesson Buttons-->
+     <section id="lessons-7 buddhism" class="hidden">
+        <h2>7 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.බුදු සිරිතේ පළමු වසර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.බුදු සිරිත අනුව යමු අසරණයන්ට සරණ වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.බුදුගුණ දැන සිත් සනසමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.දිවි සරසන සිරිත විරිත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.මනස පුබුදන නැණැ'ස පාදමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.බුදු සසුනේ අග්‍ර දායකයා හා අග්‍ර දායිකාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ධම්ම පදයෙන් අපේ දිවියට</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.පන්සිල් හා එහි සමාජීය වටිනාකම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ආජීව අෂ්ටමක ශීලයෙන් දිවි සරු කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.ගුරු සිත සනසවා අකුරු උගනිමු සොදවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ආදර්ශවත් නායකත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.සැනසුම ගෙන එන ඉවසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.හෙළබොදු සිරිතට යොමු වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.බුදු දහමෙන් ඇගයෙන සහජීවනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සියල්ල කර්මයෙන් සිදු නොවේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.චතුරාර්ය සත්‍යය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.වළකිමු වරදින් උපමා කොට තමන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.තැනට ගැළපෙන ලෙසින් හැසිරෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.මහින්දාගමනයෙන් අප ලත් දයාද</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ධන පරිහරණයට ආදාළ බොදු මග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.දෙලෝ වැඩ සාදන පින් කිටියවත්</button>
+    </section>
+
+    <section id="lessons-7 Mathematics" class="hidden">
+        <h2>7 වසර - ගණිතය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සමමිතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.කුලක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පූර්ණ සංඛ්‍යා මත ගණිත කර්ම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.සාධක හා ගුණාකාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.දර්ශක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.කාලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.සමාන්තර සරල රේඛා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සදිශ සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.භාග.</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.දශම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.වීජීය ප්‍රකාශන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ස්කන්ධය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.සරල රේඛීය තල රූප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සමීකරණ සහ සූත්‍ර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.දිග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.වර්ගඵලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.වෘත්ත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ද්‍රව මිනුම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.අනුපාත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.ප්‍රතිශත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.කාටීසීය තලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.සරල රේඛීය තල රූප නිර්මාණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 25')">25.ඝන වස්තු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 26')">26.දත්ත නිරූපනය හා අර්ථකථනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 27')">27.පරිමාණ රූප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 28')">28.ටෙසලාකරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 29')">29.සිදුවීමක විය හැකියාව</button>
+    </section>
+
+    
+    <section id="lessons-7 sinhala" class="hidden">
+        <h2>7 වසර - සිංහල පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ගොවි බිරිඳගේ නුවණ </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.සසුන බැබළවූ සරණංකර සගරජ තේරුණුවෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.අක්ෂර මාලාව හා අක්ෂර වින්‍යාසය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඔයි රයිරේ ඔයි රාමා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ශ්‍රී ලංකාවේ අහිකුණ්ඨික ජනතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.මේ කාගේ දෝ කමතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.දෙව්දම් ඇදුරු එඩ්මන්ඩ් පීරිස් රදගුරු හිමි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.කතා බහට සංයමයක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.තිලමුට්ඨි ජාතකය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.අපේ ලෝහ තාක්ෂණයේ යටගියාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ප්‍රායෝගික ලේඛන </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.සිනා කුමාරි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.වාක්‍ය රචනය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.නිවේදන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.ලොවට තර්ජනයක් වන විද්‍යුත් අපද්‍රව්‍ය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.සකි සද පෙනේ සමනොළ ගල නැගෙනහිර </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.සුදන ගුණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.මා දුටු මුල් හිරු පෙන්නූ ලංකා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.දුං දුමටයි අගුරුයි මටයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.සකස් කඩ නො කී කට</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.පුස්තකාලයට පිය නගමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.තොප්පි වෙළෙන්දා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.යහළුවෝ </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.පොල් ලද සැටි</button>
+    </section>
+
+    <section id="lessons-7 ICT" class="hidden">
+        <h2>7 වසර - ICT පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.මධ්‍ය සැකසුම් ඒකකය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.මෙහෙයුම් පද්ධතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පරිගණක පද්ධතියේ ආරක්ෂාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.වදන් සැකසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ක්‍රමලේඛ සංවර්ධනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.සමර්පණ මෘදුකාංග </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.තොරතුරු හා සන්නිවේදනය සදහා අන්තර්ජාලය භාවිතය</button>
+    </section>
+
+    <section id="lessons-7 History" class="hidden">
+        <h2>7 වසර - ඉතිහාසය පාඩම් තේරීම- </h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අපේ පැරණි ජන ජීවිතය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.අපේ කීර්තිමත් රජවරු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.අපේ සංස්කෘතික උරුම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.පසුකාලීන පාලන මධ්‍යස්ථාන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.යුරෝපයේ පැරණි ශිෂ්ටාචාර</button>
+    </section>
+
+    <section id="lessons-7 English" class="hidden">
+        <h2>7 වසර - ඉංග්‍රීසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.What you see</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.Friends indeed</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.Pleasure</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.A busy day</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.Once upon a time</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.Better safe than sorry</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.Around the country </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.Wonders around us</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.Our beautiful world</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.Future</button>
+    </section>
+    
+    <section id="lessons-7 Geography" class="hidden">
+        <h2>7 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අප ජීව්ත් වන පෘථිවි ගෝලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ශ්‍රී ලංකාවේ අනන්‍යතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ශ්‍රී ලංකාවේ භූ දර්ශනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ස්වාභාවික උපද්‍රව සහ ආපදා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.සිතියම් පරිහරණය</button>
+    </section>
+
+    <section id="lessons-7 Science" class="hidden">
+        <h2>7 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ශාක විවිධත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ස්ථිති විද්‍යුතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.විදුලි ජන්නය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ජලයේ කාර්ය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.අම්ල හා භස්ම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.සත්ත්ව විවිධත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ශක්ති ආකාර සහ භාවිත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.පෘථිවියේ ස්වාභාවය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ආලෝකය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.අණ්වීක්ෂයේ නිවැරදි භාවිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ධ්වනිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ජෛව ක්‍රියාවලි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.වායුගෝලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.තාපය හා උෂ්ණත්වය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.පස</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.බලය හා චලිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.ආහාරවල ඇති පෝෂක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ඛනිජ හා පාෂාණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ශක්ති ප්‍රභව</button>
+    </section>
+
+    <section id="lessons-7 Helith" class="hidden">
+        <h2>7 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සෞඛ්‍යවත් පවුල් පරිසරයක් ගොඩ නගමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ආදරය ලබමු, සුරක්ෂිත වෙ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ජන ක්‍රීඩාවල නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.වොලොබෝල් ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.නෙට්බෝල් ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.පා පන්දු ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.නිවැරදි ඉරියව් පවත්වා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.මලල ක්‍රීඩා සදහා පුහුණුව ලබමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.සෞඛ්‍යවත් ආහාර පුරුදු ඇති කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.අපේ සිරුර හදුනා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.චිත්තවේග සමබරතාව  රැක ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ක්‍රීඩාවේ නීති රීති හා ආචාර ධර්ම වලට ගරු කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ශාරීරික යෝග්‍යතාව වර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.නව යොවුන් වියට මුහුණ දෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.බෝ නොවන රෝග වළක්වා ගනිමු</button>
+    </section>
+
+
+    <section id="lessons-7 citizen" class="hidden">
+        <h2>7 වසර - පුරවැසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අපේ පවුල</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.අපේ ජන සමාජය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.අපේ සංස්කෘතිය</button>
+    </section>
+
+    <!--Graed 8 Lesson Buttons-->
+    <section id="lessons-8 buddhism" class="hidden">
+        <h2>8 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ගැටලු විසදමු දැහැමි විලසින්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.බොදු සිරිත් පිළිපැද වෙමු අපි සොදුරු දරුවන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ධර්ම රත්නයේ ගුණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.අපේ සිරිත් අපි රකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.බුදු ගුණ සිහි කර බවුන් වඩමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.අගසව් දෙනමගෙන් උගනිමු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.පමා බවෙන් මිදුණු කෙනෙක් මුළු ලෝකයම එළිය කරයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සගරුවනට අනුව හුරු පුරුදු වෙමු සුසිරිත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ශීල ශික්ෂාවේ ඉදිරි පියවර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.උගනිමු අඹු-සැමි, හිත-මිතුරු යුතුකම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.උපාය කුසලතාවෙන් යුතු වෙමු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.එකමුතුව දිවි ගෙවමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.දුක දැන හැදි*න නුවණින් ගත කරමු දිවි දැහැමින්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.තණ්හාය ජායතී සෝකෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.හළොත් යෙහෙකි පව්කම් නොතබා ම සිත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.ජීවිත නොනසමු දේපළ සුරකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.බුදු සිරිත හා බැදු*ණු තුරුලතා රැක ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.සසුන්කෙත රැක්මට බැදු*ණ රන්වැට</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.සිරි දළදා අසරිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.සැපවත් ජීවිතයකට මග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.පිරිහීම මග හරින අපරිහානීය ධර්ම </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.මහා මංගල සූත්‍රය</button>
+    </section>
+
+    <section id="lessons-8 Mathematics" class="hidden">
+        <h2>8 වසර - ගණිතය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සංඛ්‍යා රටා </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.පරිමිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.සදිශ සංඛ්‍යා </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.වීජීය ප්‍රකාශන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ඝන වස්තු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.සාධක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.වර්ගමූලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ස්කන්ධය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.දර්ශක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.සමමිතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ත්‍රිකෝණ හා චතුරස්‍ර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.භාග ¡</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.භාග ¡¡</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.දශම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.අනුපාත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.සමීකරණ </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ප්‍රතිශත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.කුලක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.කාලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.පරිමාව හා ධාරිතාව </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.වෘත්ත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.ස්ථානයක පිහිටීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 25')">25.සංඛ්‍යා රේඛාව හා කාටීසීය තලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 26')">26.ත්‍රිකෝණ නිර්මාණය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 27')">27.දත්ත නිරූපනය හා අර්ථකථනය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 28')">28.පරිමාණ රූප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 29')">29.සම්භාවිතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 30')">30.ටෙසලාකරණය</button>
+    </section>
+
+    
+    <section id="lessons-8 sinhala" class="hidden">
+        <h2>8 වසර - සිංහල පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.එතනහාමි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.රබීන්ද්‍රනාත් තාගෝර් හා ඔහුගේ නිර්මාණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.අලුත් අවුරුදු උත්සවය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශබ්දකෝෂ භාවිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.රාත්‍රිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.කතා බහට අවධානය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.විධි ක්‍රියා - ආශීර්වාද ක්‍රියා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.ප්‍රායෝගික ලේඛන </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.අවුරුදු සිහිනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.සැබෑ ළෙන්ගතුකම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.සිරි ලංකා රට ම අපි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.නිවැරදිව කියවමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.වාක්‍ය රීති |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.කතරගම පුදබිම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.පරිසර හිතකාමී කඩදාසි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.අද බැරි නම් හෙට තෝරාපන් යාළු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.පරාස්ස</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.වාක්‍ය රීති ¡¡</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ප්‍රවෘත්ති </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.බොදු පුනරුදයේ සෙන්පතියාණෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.මෙත් සිත් සව් සත කෙරෙහි කරන්නේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.සයුරු ගැබෙන් මතු වූ නැව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.සවන් යොමමු, කතා කරමු, ලියුම් ලියමු</button>
+    </section>
+
+    <section id="lessons-8 ICT" class="hidden">
+        <h2>8 වසර - ICT පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සංඛ්‍යා පද්ධති</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.මෙහෙයුම් පද්ධතිය භාවිතයෙන් පරිගණකයක් වින්‍යාස කිරීම හා සිටුවම් කිරීම </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.වදන් සැකසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ක්‍රමලේඛ ගොඩනැගීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.භෞතික ආගණනය සදහා මෘදුකාංග භාවිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.අන්තර්ජාලයේ සැරිසරමු</button>
+    </section>
+
+    <section id="lessons-8 History" class="hidden">
+        <h2>8 වසර - ඉතිහාසය පාඩම් තේරීම- </h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ශ්‍රී ලංකාවේ සාම්ප්‍රදායික තාක්ෂණය හා කලාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.මහනුවර රාජධානිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.යුරෝපයේ පුනරුදය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.දේශ ගවේෂණය හා යුරෝපා ජාතීන් පෙරදිගට පැමිණීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ශ්‍රී ලංකාවේ මුහුදුබඩ ප්‍රදේශ පෘතුගීසින් යටතට පත් වීම</button>
+    </section>
+
+    <section id="lessons-8 English" class="hidden">
+        <h2>8 වසර - ඉංග්‍රීසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.PLAN THE WORK WORK THE PLAN</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.WINGED FRIENDS </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.LET'S BE CONSIDERATE </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.MOTHER NATURE </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.BETWEEN THE MILES</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.WHEN WE ARE  TOGETHER </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.THE WORLD  OF CHILDREN </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.IT'S A SMALL WORLD </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ON TOP OF THE WORLD</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.BEYOND THE CLASSROOM</button>
+    </section>
+    
+    <section id="lessons-8 Geography" class="hidden">
+        <h2>8 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සෞරග්‍රහ මණ්ඩලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ජීවීන්ගේ වාසභූමියක් ලෙස පෘථිවියේ සුවිශේෂත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දකුණු ආසියාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශ්‍රී ලංකාවේ 1:50000 භූ ලක්ෂණ සිතියම්වල මූලික ලක්ෂණ</button>
+    </section>
+
+    <section id="lessons-8 Science" class="hidden">
+        <h2>8 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ක්ෂුද්‍ර ජීවීන්ගේ වැදගත්කම </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.සත්ත්ව වර්ගීකරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ශාක කොටස්වල විවිධත්වය හා කෘත්‍ය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.පදාර්ථයේ ගුණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ධ්වනිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.චුම්බක </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ධාරා විද්‍යුතය පිළිබඳ මිනුම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.පදාර්ථයේ විපර්යාස</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.මානව ඉන්ද්‍රිය පද්ධතිය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.විද්‍යුතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ශාකවල ප්‍රධාන ජෛව ක්‍රියාවලි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ජීවීන්ගේ ජීවන චක්‍ර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ආහාර පරිරක්ෂණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.සෞරග්‍රහ මණ්ඩලය ආශ්‍රිත සංසිද්ධි හා ගවේෂණය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.ස්වාභාවික ආපදා</button>
+    </section>
+
+    <section id="lessons-8 Helith" class="hidden">
+        <h2>8 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ආත්ම අභිමානයෙන් යුක්ත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ආචාර පෙළපාලි ඉරියව් පුහුණු වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.වොලිබෝල් ක්‍රීඩාවේ යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.නෙට්බෝල් ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ධාවන තරග ආරම්භය හදාරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.සෞඛ්‍යවත් පාසල් පරිසරයක් ගොඩ නගමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.අනුක්‍රීඩාවල යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.පා පන්දු ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ධාවන අභ්‍යාස පුහුණු වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.පැනීමේ ඉසව් ඉගෙන ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ප්‍රජනක සෞඛ්‍යය රැක ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.විසි කිරීම් ඉසව් ප්‍රගුණ් කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ක්‍රීඩකත්ව ගුණාංග වර්ධනය කර ගනිමු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.ආහාරවල පෝෂණ ගුණය රැක ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සෞඛ්‍යය ආශ්‍රිතව යෝග්‍යතාව වර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.ජීවන නිපුණතා සංවර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.පාරිසරික අභියෝගවලට සාර්ථකව මුහුණ දෙමු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.එදිනෙදා මුහුණ දෙන අනතුරු සද*හා ප්‍රථමාධාර දැන ගනිමු</button>
+    </section>
+
+
+    <section id="lessons-8 citizen" class="hidden">
+        <h2>8 වසර - පුරවැසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පොදු සේවා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ප්‍රජාතන්ත්‍රවාදී ජන සමාජය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.බහු සංස්කෘතික ජන සමාජය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.කාලීන ගැටලු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ගැටලු විසද*මින් අභියෝගය ජය ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.වැඩ ලෝකයට පිවිසෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.භූගෝලීය විද්‍යාව </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සෞරග්‍රහ මණ්ඩලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ජීවීන්ගේ වාසභූමියක් ලෙස පෘථිවියේ සුවිශේෂත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.දකුණු ආසියාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ශ්‍රී ලංකාවේ 1:50000 භූ ලක්ෂණ සිතියම්වල මූලික ලක්ෂණ</button>
+    </section>
+
+
+    <!--Graed 9 Lesson Buttons-->
+    <section id="lessons-9 buddhism" class="hidden">
+        <h2>9 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">පාඩම 1</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">පාඩම 2</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">පාඩම 3</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">පාඩම 4</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">පාඩම 5</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">පාඩම 6</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">පාඩම 7</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">පාඩම 8</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">පාඩම 9</button>
+    </section>
+
+    <section id="lessons-9 Mathematics" class="hidden">
+        <h2>9 වසර - ගණිතය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සංඛ්‍යා රටා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ද්විමය සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ප්‍රතිශත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.විජීය ප්‍රකාශන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.විජීය ප්‍රකාශනවල සාධක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ප්‍රත්‍යක්ෂ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සරල රේඛා හා සමාන්තර රේඛා ආශ්‍රිත කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ද්‍රව මිනුම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.අනුලෝම සමානුපාත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ගණකය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.දර්ශක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.වැටයීම හා විද්‍යාත්මක අංකනය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.පථ හා නිර්මාණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සමිකරණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.ත්‍රිකෝණයක කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.සූත්‍ර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.වෘත්තයක පරිධිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.පයිතගරස් සම්බන්ධය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ප්‍රස්තාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.අසමානතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.කුලක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.වර්ගඵලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.සම්භාවිතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 25')">25.බහු අසුවල කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 26')">26.විජීය භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 27')">27.පරිමාණ රූප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 28')">28.දත්ත නිරූපණය හා අර්ථකථනය</button>
+    </section>
+
+    
+    <section id="lessons-9 sinhala" class="hidden">
+        <h2>9 වසර - සිංහල පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ශ්‍රී පාදය වැන්දවූ හැටි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ලප සේ සද* විලසේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දේශීය නර්තනයේ රන් සලකුණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ස්ටීවන් හෝකින්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.නිවැරදි ශබ්දෝච්චාරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.මගේ රට මට අගෙයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.දැසේ නිල් පැහැය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.මහධන සිටුපුත්හුගේ වස්තුව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ප්‍රායෝගික ලේඛන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.නවම් මහේ නව වළල්ල</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.උගැන්නැ සියබස - මත් වන්නැ එහි රසයෙන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ආනන්ද කුමාරස්වාමි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.හොද ළමයා නුවණිනි - හොද දේ තෝරා ගනී</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.කඨින පූජෝත්සවය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සිරම්බි අඩිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.දිට්හ දාන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.අභ්‍යවකාශ තාක්ෂණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.පොතපතේ සරු දහම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">18.පොතපතේ සරු දහම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.මහසාර පලදනාව</button>
+    </section>
+
+    <section id="lessons-9 ICT" class="hidden">
+        <h2>9 වසර - ICT පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පරිගණක සහ පරයන්ත උපාංග මිලදී ගැනීම සදහා පිරිවිතර සැකසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.විද්‍යුත් පැතුරුම්පත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ක්‍රමලේඛ ගොඩනැගීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ක්ෂුද්‍ර පාලක භාවිතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">6.තොරතුරු හා සන්නිවේදන තාක්ෂණය හා සමාජය</button>
+    </section>
+
+    <section id="lessons-9 History" class="hidden">
+        <h2>9 වසර - ඉතිහාසය පාඩම් තේරීම- </h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ශ්‍රී ලංකාවේ මුහුදුබඩ ප්‍රදේශ ලන්දේසීන් යටතට පත් වීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ශ්‍රී ලංකාවේ බ්‍රිතාන්‍ය බලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ශ්‍රී ලංකාවේ ආගමික හා ජාතික පුනර්ජීවනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඉන්දියානු නිදහස් සටන් ව්‍යාපාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ශ්‍රී ලංකාවේ ආණ්ඩුක්‍රම ප්‍රතිසංස්කරණ හා ජාතික නිදහස් ව්‍යාපාරය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.නිදහසින් පසු ශ්‍රී ලංකාව</button>
+    </section>
+
+    <section id="lessons-9 English" class="hidden">
+        <h2>9 වසර - ඉංග්‍රීසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.EVERYBODY IS GOOD AT SOMETHING </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.MAY I HELP YOU</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.MEETING</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.EXTINCT FRIENDS </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.A SECOND CHANCE CALLED TOMORROW</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ART</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.WHERE WE ARE.....</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.SUCCESS THROUGH CREATIVITY </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.THE GREATEST WEALTH </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.BE HAPPY, BE BRIGHT, BE YOU !</button>
+    </section>
+    
+    <section id="lessons-9 Geography" class="hidden">
+        <h2>9 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ආසියානු ප්‍රදේශය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ශ්‍රී ලංකාවේ භූ දර්ශනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ශ්‍රී ලංකාවේ සංවර්ධනයේ අවකාශීය වෙනස්කම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.පාරසරික තුලිතතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ශ්‍රී ලංකා 1:50000 භූ ලක්ෂණ සිතියම් කියවීම</button>
+    </section>
+
+    <section id="lessons-9 Science" class="hidden">
+        <h2>9 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ක්ෂුද්‍ර ජීවීන්ගේ භාවිත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ඇස හා කන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පදාර්ථයේ ස්වාභාවය හා ගුණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.බලය හා සම්බන්ධ මූලික සංකල්ප</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන ද්‍රව්‍ය මගින් ඇතිකරන පීඩනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.මානව රුධිර සංසරණ පද්ධතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ශාක වර්ධක ද්‍රව්‍ය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.ජීවීන්ගේ සන්ධාරණය හා චලනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.පරිණාමික ක්‍රියාවලිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.විද්‍යුත් විච්ඡේදනය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ඝනත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ජෛව විවිධත්වය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.කෘත්‍රීම පරිසරය හා හරිත සංකල්පය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.තරංග පරාවර්තනය හා වර්තනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සරල යන්ත්‍ර </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.නැනො තාක්ෂණය හා එහි භාවිත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.අකුණු අනතුරු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ස්වාභාවික ආපදා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ස්වාභාවික සම්පත් තිරසරව භාවිතය</button>
+    </section>
+
+    
+    <section id="lessons-9 Helith" class="hidden">
+        <h2>9 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සෞඛ්‍යවත් සමාජයක් ගොඩ නගමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ආත්ම සාක්ෂාත්කරණයට ළගා වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.නිවැරදි ඉරියව්වලට බාධා වන ශාරීරික ආබාධ හදුනා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.සංවිධානාත්මක ක්‍රීඩා හා එළිමහන් ක්‍රියාකාරකම් හදුනා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.වොලිබෝල් ක්‍රීඩාවේ යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.නෙට්බෝල් ක්‍රීඩාවේ නිරත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.පා පන්දු ක්‍රීඩාවේ යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සහාය දිවිමට පුහුණුව ලබමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.දුර පැනීම් ඉසව් ප්‍රගුණ කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.පෝෂණ අවශ්‍යතා සපුරා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.බාහිර පෙනුමට බලපාන ශරීරාංග සුරකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.සෞඛ්‍ය ආශ්‍රිත ශාරීරික යෝග්‍යතාව වර්ධනය කර ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ගැට සහ බැමි යෙදීමට හුරු වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.ගිනිමැළ ගසා සතුටු වෙමු එළිමහන් ආහාර පිසිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.උස පැනීමේ ඉසව් ප්‍රගුණ කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.විසි කිරීමේ ඉසව් ප්‍රගුණ කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.ක්‍රීඩාව තුළින් සමාජීය සාරධර්ම පුහුණු වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.මනෝ සමාජීය යෝග්‍යතාව දියුණු කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ස්ත්‍රී පුරුෂ භාවයේ වගකීම් හදුනා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.සමාජීය අභියෝග ජය ගනිමු</button>
+    </section>
+
+    <section id="lessons-9 PTS" class="hidden">
+        <h2>9 වසර - PTS පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාක්ෂණික ක්ෂේත්‍රය - කෘෂිකර්මය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.තාක්ෂණික ක්ෂේත්‍රය - ආහාර </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.තාක්ෂණික ක්ෂේත්‍රය - ආරම්භක තාක්ෂණවේදය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.තාක්ෂණික ක්ෂේත්‍රය - ව්‍යාපාර</button>
+    </section>
+
+    <section id="lessons-9 citizen" class="hidden">
+        <h2>9 වසර - පුරවැසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සමාජ සුරක්ෂිතතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.කාලීන වෙනස්වීම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ප්‍රජාතන්ත්‍රවාදී පාලනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.පළාත් පාලනා ආයතන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ගැටුම් නිරාකරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.අනාගත වැඩ ලෝකයට පිවිසෙමු</button>
+    </section>
+
+    <!--Graed 10 Lesson Buttons-->
+    <section id="lessons-10 buddhism" class="hidden">
+        <h2>10 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අභියෝග ජය ගත් සිදුහත් බෝසතාණෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.නමදිමු අගයමු මහ සගරුවනා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.තෙරුවන ගුණ හැදි*න ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.කුසල් සිත් වැඩි දියුණු කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.විදසුන් වඩන්නෝ ඇති තතු දකින්නෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.සසුන් කෙත සරු කළ, උතුමෝ ගුණැති පෙර කල</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.මහලු වියෙහි දුක් නොවන්න තුරුණු දිවිය ගොඩනගන්න</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.අනුසස් දැක සිල්වත් වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.සබද*තා රකින මිනිස් යුතුකම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.රුදුරු මිනිසුන් අතර වෙමු අපි සොදු*රු මිනිසුන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.අපේකම සහ සහජීවනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.කර්මය සහ එහි ප්‍රභේද හැදි*න ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ඇති තතු කියන තිලකුණු දහම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.පටිච්ච සමුප්පාදය න්‍යාය හැදි*න ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සිව්සස් හැදි*න සැනසුම ලබමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.බුදු සිරිතයි - පරිසරයයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.නීරෝගී බව උතුම් ලාභයයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.නිවැරදි ආහාර පරිභෝජනයෙන් සුව සේ වෙසෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.සසුන සුරැකි සංගායනා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.හෙළ කලාවන් සුරකිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.බෞද්ධ සාහිත්‍යය රස විදිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.බෞද්ධ සාහිත්‍යය රස විදිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.රාජ්‍ය පාලනය පිළිබඳ බෞද්ධ ඉගැන්වීම්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.ශ්‍රද්ධාව නිවන් මගෙහි පිවිසුමයි</button>
+    </section>
+
+    <section id="lessons-10 Commerce " class="hidden">
+        <h2>10 වසර - Commerce පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ව්‍යාපාර පසුබිම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ව්‍යාපාර පරිසරය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ව්‍යාපාර සංවිධාන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ගිණුම්කරණය හැදින්වීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ගිණුම්කරණ සමීකරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ගනුදෙනුවල ද්විත්ම බලපෑම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.මූලික සටහන් පොත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.මුදල් පොත සහ සුළු මුදල් පොත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.බැංකු ගිණුම හා සැසදුම් විස්තරය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.ගැනුම් ජ'නලය, විකුණුම් ජ'නලය සහ පොදු ජ'නලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ශේෂ පිරික්සුම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ගිණුම්කරණ වැරදි නිවැරදි කිරීම</button>
+    </section>
+
+    <section id="lessons-10 Geography" class="hidden">
+        <h2>10 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පෘථිවියේ සංයුතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.පෘථිවියේ ප්‍රධාන භෞතික ලක්ෂණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ලෝකයේ ප්‍රධාන කෘෂිකාර්මික භූමි පරිභෝග වර්ග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශ්‍රී ලංකාවේ කෘෂිකර්මාන්තය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.නිෂ්පාදන කර්මාන්ත </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ශ්‍රී ලංකාවේ කර්මාන්ත කිහිපයක ව්‍යාප්තිය, ගැටලු හා ප්‍රවණතා </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.සිතියම් හැදින්වීම</button>
+    </section>
+
+   <section id="lessons-10 Home Science" class="hidden">
+    <h2>10 වසර - ගෘහ ආර්ථික විද්‍යාව පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පවුල තුළින් ප්‍රසන්න ජීවන පරිසරයක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ගෘහීය සම්පත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ආහාර කාණ්ඩ හා පෝෂ්‍ය පදාර්ථ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ආහාර වේල් සැලසුම් කිරීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ආහාරයේ ගුණාත්මක බව රැක ගැනීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ආහාර පිළියෙල කිරීම හා පිසීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ආහාර පිළිගැන්වීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.ආහාර පරිරක්ෂණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.පෝෂණ ඌනතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.විවිධ මැහුම් ක්‍රම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.ඇදුම් නිර්මාණය කිරීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.නව යෞවන අවධිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.දරුවන් රැකබලා ගැනීම</button>
+   </section>
+        
+   <section id="lessons-10 sinhala" class="hidden">
+    <h2>10 වසර - සිංහල පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.අතීතයෙන් කතාවක් </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.සිංහල අක්ෂර මාලාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ප්‍රාදේශික ව්‍යවහාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ආරාමයේ නිර්මාණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ආචාර්ය සී. ඩබ්ලිව්. කන්නන්ගර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.මං තනන්නෝ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.බසින් රස මවන සාහිත්‍යය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.මේ අපේ උදාර වූ මාතෘ භූමියයි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.කර්තෘ කාරක වාක්‍ය සහ කර්ම කාරක වාක්‍ය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.පුවත්පත් විශේෂාංග ලිපි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.පැරණි ජීවනෝපාය ක්‍රම හා බැදුණු සිරිත් විරිත්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.කාව්‍ය නිර්මාණකරණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ආචාර්ය ටී. බී ජායා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.තොරොක්කෝව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.ළදේ නිසරු නො කරන් අප සියඹලා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.එතෙමුල් අමා හැල්ලෙන්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.මහාචාර්ය සේනක බිබිලේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ආපදා කළමනාකරණය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.සන්ධි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ශ්‍රී ලංකාවේ පැරණි නිවාස </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.මිණි ගණ සදෙ*ස් වැනුමින්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.දීපවාලි උත්සවය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.සාහිත්‍යය නිර්මාණ විචාරය</button> 
+    </section>
+    
+    <section id="lessons-10 sinhala shaith" class="hidden">
+        <h2>10 වසර - සිංහල සාහිත්‍යය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සතර කන් මන්ත්‍රණය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ගුත්තිල වෙණ නද</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.හානා හීය පානා අඩ*හැරෙන් දැනේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.බැද්දේගම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.මුනි සිරිපා සිඹිමින්නේ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ගංගාවේ සංගීතය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.ලෙන අතහැර යෑම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.අගු*ල්මල් දමනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.උග්ගසේන සිටුපුත්හුගේ වස්තුව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.කෑරගලය වැජඹෙයි මේ ලෙසින් සිට....</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.මග විසිතුරු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.කුරහන්  ඉසිමු කළුවර බලාලා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.අපට වැසිකිළියක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.දියමන්ති මාලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.දැතේ කරගැට සිඹ සනසන්නට</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.වස්සානය</button>
+   </section>
+   
+    <section id="lessons-10 Mathematics" class="hidden">
+        <h2>10 වසර - ගණිතය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.පරිමිතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.වර්ගමූලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ද්විපද ප්‍රකාශන </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ත්‍රිකෝණ අංගසාම්‍යය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.වර්ගජ ප්‍රකාශනවල සාධක</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.ත්‍රිකෝණ |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ත්‍රිකෝණ ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.ප්‍රතිලෝම සමානුපාත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.දත්ත නිරූපනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.විජීය ප්‍රකාශනවල කුඩා ම පොදු ගුණාකාරට</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.වීජීය භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.ප්‍රතිශත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.සමීකරණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.සමාන්ත්‍රරාස්‍ර |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.සමාන්‍ත්‍රරාස්‍ර ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">17.සමාන්‍ත්‍රරාස්‍ර ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 21')">21.ප්‍රස්තාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 22')">22.ශීඝ්‍රතාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 23')">23.සූත්‍ර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 24')">24.සමාන්තර ශ්‍රේඪි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 25')">25.වීජීය අසමානතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 26')">26.සංබ්‍යාත ව්‍යාප්ති</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 27')">27.වෘත්තීයක ජායා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 28')">28.නිර්මාණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 29')">29.පෘෂ්ඨ වර්ගඵලය හා පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 30')">30.සම්භාවිතාව </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 31')">31.වෘත්තයක කෝණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 32')">32.පරිමාණ රූප</button>      
+   </section>
+
+   <section id="lessons-10 Science" class="hidden">
+    <h2>10 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ජීවයේ රසායනික පදනම</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.සරල රේඛීය චලිතය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පදාර්ථයේ ව්‍යුහය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.චලිතය පිළිබඳ නිව්ටන්  නියම</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝර්ෂණය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ශාක හා සත්ත්ව සෛලවල ව්‍යුහය හා කෘත්‍ය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.මූලද්‍රව්‍ය හා සංයෝග ප්‍රමාණනය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.ජීවීන්ගේ ලාක්ෂණික</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.සම්ප්‍රයුක්ත බලය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.රසායනික බන්ධන</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.බලයක භ්‍රමණ ආචරණය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.බල සමතුලිතතාව</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.ජෛව ලෝකය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.ජීවයේ අඛණ්ඩතාව</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.ද්‍රවස්ථිති පීඩනය හා එහි යෙදීම්</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.පාදර්ථයේ වෙනස් වීම්</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.ප්‍රතික්‍රියාවක ශීඝ්‍රතාව</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.කාර්යය, ශක්තිය හා ජවය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.ධාරා විද්‍යුතය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.ප්‍රවේණිය</button>
+   </section>
+
+   <section id="lessons-10 Helith" class="hidden">
+    <h2>10 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සෞඛ්‍යවත් සමාජයක් ගොඩ නගමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ළමා වියේ සංවර්ධනය පිළිබඳ දැනුවත් වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.නිවැරදි ඉරියව් පවත්වා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ක්‍රීඩා සහ එළිමහන් ක්‍රියාකාරකම්වල යෙදෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.මලල ක්‍රීඩා ගැන දැනුවත් වෙමු </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ක්‍රීඩා නීති රීති හා ආචාර ධර්මවලට අනුගත වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.නිවැරදි පෝෂණය ලබා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සිරුරේ නීරෝගී බව රැක ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.සෞඛ්‍යවත් ජීවිතයක් සදහා යෝග්‍යතාව පවත්වා ගනිමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.අනතුරු වළක්වා ගනිමු</button>
+   </section>
+   
+   <section id="lessons-10 citizen" class="hidden">
+    <h2>10 වසර - පුරවැසි පාඩම් තේරීම</h2>
+        <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ප්‍රජාතන්ත්‍රවාදී පාලනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.බලය විමධ්‍යගත කිරීම හා බලය බෙදාහැරීම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.බහු සංස්කෘතික සමාජය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ආර්ථික ක්‍රම හා ආර්ථික සබඳතා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ප්‍රජාතන්ත්‍රවාදී සමාජයක ගැටුම් නිරාකරණය</button>
+   </section>
+
+   <section id="lessons-10 History" class="hidden">
+    <h2>10 වසර - ඉතිහාසය පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.ඉතිහාසය හැදෑරීමේ මූලාශ්‍රය </button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.ශ්‍රී ලංකාවේ ජනාවාස</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.ශ්‍රී ලංකාවේ දේශපාලන බලය විකාශනය වීම</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ශ්‍රී ලංකාවේ පැරණි සමාජය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ශ්‍රී ලංකාවේ පැරණි විද්‍යාව හා තාක්ෂණය </button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ඓතිහාසික දැනුම සහ එහි ප්‍රායෝගික ආදේශනය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.වියළි කලාපයේ පැරණි නගර පිරිහීම හා නිරිතදිග නව රාජධානි බිහි වීම</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.මහනුවර රාජධානිය </button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.පුනරුදය</button>
+    <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.ශ්‍රී ලංකාව හා බටහිර ලෝකය</button>
+   </section>
+
+
+   <!--Graed 11 Lesson Buttons-->
+   <section id="lessons-11 buddhism" class="hidden">
+    <h2>11 වසර - බුද්ධාගම පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.සසර දුකත් දුකින් මිදීමත් උගන්වන බෞද්ධ හේතුඵල ධර්මය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.බුදු දහම  පදනම් කරගත් ජීවන දැක්මක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.පරිසර හිතකාමී වෙමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.බුදුබණ ඇසුරෙන් නීරෝගී දිවියක්</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.නිමල දහම රැකුණු අයුරු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.මහින්දාගමනයෙන් ශ්‍රී ලාංකික ජන ජීවීතය ඔපවත් වූ ආකාරය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.හෙළ බොදු කලාවේ අසිරිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.බුදු සමයෙන් පෝෂණය වූ සිංහල සාහිත්‍යය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.දැහැමි ධනය ගෙනෙයි සැපය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.දැහැමි ව උපයා දැහැමි ව වැය කරමු</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.පාලකයනට මග කියන බුදු දහම</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ලොව්තුරු සුවේ පදනම සම්මා දිට්ඨියයි</button>
+   </section>
+
+   <section id="lessons-11 Mathematics" class="hidden">
+    <h2>11 වසර - ගණිතය පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 7')">7.වීජීය භාග</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 8')">8.සමාන්තර රේඛා අතර තල රූපවල වර්ගඵලය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 9')">9.ප්‍රතිශත</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 10')">10.කොටස් වෙළෙඳපොළ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 11')">11.මධ්‍ය ලක්ෂ්‍ය ප්‍රමේයය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 12')">12.ප්‍රස්තාර</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 13')">13.සමීකරණ</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 14')">14.සමකෝණික ත්‍රිකෝණ </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 15')">15.දත්ත නිරූපණය හා අර්ථකථනය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 16')">16.ගුණෝත්තර ශ්‍රේඪි</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 17')">17.පයිතගරස් ප්‍රමේයය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 18')">18.ත්‍රිකෝණමිතිය</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 19')">19.න්‍යාස</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 20')">20.අසමානතා</button>
+   </section>
+
+
+   <section id="lessons-11 ICT" class="hidden">
+    <h2>11 වසර - Ict පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+
+
+   <section id="lessons-11 History" class="hidden">
+    <h2>11 වසර - ඉතිහාසය පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+
+
+   <section id="lessons-11 English" class="hidden">
+    <h2>11 වසර - ඉංග්‍රීසි පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+
+
+   <section id="lessons-11 Home Science" class="hidden">
+    <h2>11 වසර - ගෘහ ආර්ථික විද්‍යාව පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+
+   <section id="lessons-11 Commerce" class="hidden">
+    <h2>11 වසර - Commerce පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+   
+   <section id="lessons-11 citizen" class="hidden">
+    <h2>11 වසර - පුරවැසි පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+   
+   <section id="lessons-11 Helith" class="hidden">
+    <h2>11 වසර - සෟඛ්‍ය පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+   
+   <section id="lessons-11 Science" class="hidden">
+    <h2>11 වසර - විද්‍යාව පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+   
+   <section id="lessons-11 Geography" class="hidden">
+    <h2>11 වසර - භූගෝල විද්‍යාව පාඩම් තේරීම</h2>
+    <button class="lesson-btn" onclick="showVideo('Lesson 1')">1.තාත්වික සංඛ්‍යා</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 2')">2.දර්ශක හා ලඝුගණක |</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 3')">3.දර්ශක හා ලඝුගණක ||</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 4')">4.ඝන වස්තුවල පෘෂ්ඨ වර්ගඵලය </button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 5')">5.ඝන වස්තුවල පරිමාව</button>
+        <button class="lesson-btn" onclick="showVideo('Lesson 6')">6.ද්විපද ප්‍රකාශන</button>
+   </section>
+
+
+<!--Text book Buttons-->   
+
+
+<section id="lessons-12 buddhism" class="hidden">
+    <h2>6 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-06-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-06-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href=https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette target="_blank">විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+</section>
+
+
+<section id="lessons-12 script" class="hidden">
+    <h2>7 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+<section id="lessons-12 Mathematics" class="hidden">
+    <h2>8 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+
+<section id="lessons-12 ICT" class="hidden">
+    <h2>9 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+
+<section id="lessons-12 History" class="hidden">
+    <h2>10 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+<section id="lessons-12 English" class="hidden">
+    <h2>11 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>   
+
+<!--Past pepeprs Buttons-->
+
+<section id="lessons-13 buddhism" class="hidden">
+    <h2>6 වසරට අදාල සියලු පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-06-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-06-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href=https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette target="_blank">විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+</section>
+
+
+<section id="lessons-13 script" class="hidden">
+    <h2>7 වසරට අදාල සියෂ පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+<section id="lessons-13 Mathematics" class="hidden">
+    <h2>8 වසරට අදාල සියෂ පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+
+<section id="lessons-13 ICT" class="hidden">
+    <h2>9 වසරට අදාල සියෂ පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+
+<section id="lessons-13 History" class="hidden">
+    <h2>10 වසරට අදාල සියෂ පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>    
+
+<section id="lessons-13 English" class="hidden">
+    <h2>11 වසරට අදාල සියෂ පෙල පොත්</h2>
+    <a href="https://pastpapers.wiki/grade-07-sinhala-language-and-literature-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">සිංහල</a>
+    <a href="https://pastpapers.wiki/grade-06-sinhala-textbook-sinhala-medium-new-syllabus/" target="_blank">බුද්ධාගම</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ගණිතය i</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ගණිතය ii</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">විද්‍යාව i</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">විද්‍යාව ii</a>
+    <a href="https://pastpapers.wiki/grade-06-information-and-communication-technology-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ICT</a>
+    <a href="https://pastpapers.wiki/grade-06-history-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">ඉතිහාසය</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">ඉංග්‍රීසි</a>
+    <a href="https://pastpapers.wiki/grade-07-mathematics-part-ii-textbook-sinhala-medium-new-syllabus/?swcfpc=1" target="_blank">භූගෝල විද්‍යාව</a>
+    <a href="https://pastpapers.wiki/grade-07-science-part-i-textbook-sinhala-medium-new-syllabus/?swcfpc=1 target=" target="_blank">සෟඛ්‍ය</a>
+    <a href="https://pastpapers.wiki/grade-06-science-textbook-sinhala-medium-new-syllabus/?swcfpc=1#google_vignette" target="_blank">පුරවැසි</a>
+</section>   
+
+
+
+<!-- Video Section -->
+<section id="video-section" class="hidden">
+    <video width="560" height="315" controls>
+        <source src="C:\Users\USER\Documents\poject\New folder\videoplayback.mp4" type="video/mp4">
+    </video>
+
+    <footer class="hidden">
+        <p>&copy; 2024 Educational App. All Rights Reserved(Sasindu pawan).</p>
+    </footer>
+
+    <script>
+        let previousSection = ''; // Store the previous section ID for back navigation
+
+        // Function to hide splash screen and show main content
+        function hideSplashScreen() {
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.querySelector('header').classList.remove('hidden');
+                document.getElementById('year-selection').classList.remove('hidden');
+                document.querySelector('footer').classList.remove('hidden');
+            }, 1000);
+        }
+
+        // Automatically hide splash screen after 3 seconds
+        setTimeout(hideSplashScreen, 3000);
+
+        // Function to show the subjects based on the selected year
+        function showSubjects(grade) {
+            document.getElementById('year-selection').classList.add('hidden');
+            document.getElementById(`subject-${grade}`).classList.remove('hidden');
+            document.querySelector('.back-btn').classList.remove('hidden');
+            previousSection = `subject-${grade}`;
+        }
+
+        // Function to go back to previous section
+        function goBack() {
+            if (previousSection) {
+                document.getElementById(previousSection).classList.add('hidden');
+                document.getElementById('year-selection').classList.remove('hidden');
+                document.querySelector('.back-btn').classList.add('hidden');
+                previousSection = '';
+            }
+        }
+
+        // Function to show lesson buttons based on the subject
+        function showLessons(subject) {
+            document.getElementById(previousSection).classList.add('hidden');
+            document.getElementById(`lessons-${subject}`).classList.remove('hidden');
+            previousSection = `lessons-${subject}`;
+        }
+
+        // Function to show video section
+        function showVideo(lesson) {
+            document.getElementById(previousSection).classList.add('hidden');
+            document.getElementById('video-section').classList.remove('hidden');
+            previousSection = 'video-section';
+        }
+    </script>
+</body>
+</html>
